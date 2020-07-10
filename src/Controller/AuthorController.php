@@ -31,4 +31,16 @@ class AuthorController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/author/{id}", name="author_show")
+     */
+    public function AuthorShow(AuthorRepository $authorRepository, $id)
+    {
+        // on utilise la méthode find du repository pour récupérer un
+        // auteur dans la base de données en fonction de son id
+        $author = $authorRepository->find($id);
+
+        dump($author); die;
+    }
+
 }
