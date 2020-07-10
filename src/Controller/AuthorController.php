@@ -26,7 +26,9 @@ class AuthorController extends AbstractController
         // de ma table authors
         $authors = $authorRepository->findAll();
 
-        dump($authors); die;
+        return $this->render('authors.html.twig', [
+           'authors' => $authors
+        ]);
     }
 
 }

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <main>
+        {% for author in authors %}
+
+            <article>
+                <h2>{{ author.firstName }} {{ author.lastName }}</h2>
+                <p>Biographie : {{ author.biography }}</p>
+                <p>Date de naiassance : {{ author.birthDate | date('d/m/Y') }}</p>
+            </article>
+
+        {% endfor %}
+    </main>
+
+{% endblock body %}
+
