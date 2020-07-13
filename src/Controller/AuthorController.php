@@ -78,12 +78,10 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/books/genre", name="books_genre")
+     * @Route("/books/genre/{genre}", name="books_genre")
      */
-    public function BookByGenre(BookRepository $bookRepository)
+    public function BooksByGenre(BookRepository $bookRepository, $genre)
     {
-        $genre = 'Thriller';
-
         // J'utilise le bookRepository et sa méthode findBy
         // pour trouver un ou plusieurs livres en BDD
         // en fonction de la valeur d'une colonne
@@ -93,6 +91,14 @@ class AuthorController extends AbstractController
             'books' => $books,
             'genre' => $genre
         ]);
+    }
+
+    /**
+     * @Route("/books/search/resume", name="books_search_resume")
+     */
+    public function BooksSearchByResume(BookRepository $bookRepository)
+    {
+        $bookRepository->findByWordsInResume();
     }
 
 }
