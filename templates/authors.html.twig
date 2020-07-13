@@ -8,7 +8,7 @@
             <article>
                 <h2>{{ author.firstName }} {{ author.lastName }}</h2>
                 <p>Biographie : {{ author.biography }}</p>
-                <p>Date de naiassance : {{ author.birthDate | date('d/m/Y') }}</p>
+                <p>Date de naiassance : {{ author.birthDate | format_datetime('full', 'full', locale='fr') }}</p>
             </article>
 
         {% endfor %}

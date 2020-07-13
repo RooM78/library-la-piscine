@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <main>
+        {% for book in books %}
+
+            <article>
+                <h2>{{ book.title }}</h2>
+                <p>Genre : {{ book.genre }}</p>
+            </article>
+
+        {% endfor %}
+    </main>
+
+{% endblock body %}
+

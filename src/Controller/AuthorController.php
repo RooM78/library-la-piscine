@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Repository\AuthorRepository;
+use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,6 +42,57 @@ class AuthorController extends AbstractController
         $author = $authorRepository->find($id);
 
         dump($author); die;
+    }
+
+
+    /**
+     * @Route("/books", name="books_list")
+     */
+    // je demande à Symfony de m'instancier la classe AuthorRepository
+    // avec le mécanisme d'Autowire (je passe en paramètre de la méthode
+    // la classe voulue suivie d'une variable dans laquelle je veux que Symfony m'instancie ma classe
+    // l'authorRepository est la classe qui permet de faire des requêtes SELECT
+    // dans la table authors
+    public function BooksList(BookRepository $bookRepository)
+    {
+
+        // j'utilise l'bookRepository et la méthode findAll() pour récupérer tous les éléments
+        // de ma table books
+        $books = $bookRepository->findAll();
+
+        return $this->render('books.html.twig', [
+            'books' => $books
+        ]);
+    }
+
+    /**
+     * @Route("/book/{id}", name="book_show")
+     */
+    public function BookShow(BookRepository $bookRepository, $id)
+    {
+        // on utilise la méthode find du repository pour récupérer un
+        // auteur dans la base de données en fonction de son id
+        $book = $bookRepository->find($id);
+
+        dump($book); die;
+    }
+
+    /**
+     * @Route("/books/genre", name="books_genre")
+     */
+    public function BookByGenre(BookRepository $bookRepository)
+    {
+        $genre = 'Thriller';
+
+        // J'utilise le bookRepository et sa méthode findBy
+        // pour trouver un ou plusieurs livres en BDD
+        // en fonction de la valeur d'une colonne
+        $books = $bookRepository->findBy(['genre' => $genre]);
+
+        return $this->render('books_genre.html.twig', [
+            'books' => $books,
+            'genre' => $genre
+        ]);
     }
 
 }
