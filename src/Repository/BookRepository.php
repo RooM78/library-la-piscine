@@ -19,9 +19,8 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-    public function findByWordsInResume()
+    public function findByWordsInResume($word)
     {
-        $word = 'détective';
 
         // j'utilise la méthode createQueryBuilder
         // pour récupérer une instance de la classe QueryBuilder
@@ -56,8 +55,6 @@ class BookRepository extends ServiceEntityRepository
 
         // j'execute ma requête et je stocke les résultats dans une variable
         $books = $query->getResult();
-
-        dump($books); die;
 
         // je retourne les résultats
         return $books;

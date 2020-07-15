@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthorController extends AbstractController
@@ -96,9 +96,34 @@ class AuthorController extends AbstractController
     /**
      * @Route("/books/search/resume", name="books_search_resume")
      */
-    public function BooksSearchByResume(BookRepository $bookRepository)
+    public function BooksSearchByResume(
+        BookRepository $bookRepository,
+        Request $request
+    )
     {
-        $bookRepository->findByWordsInResume();
+        // J'utilise la classe Request pour récupérer la valeur
+        // du parametre d'url "search" (envoyé par le formulaire)
+        $word = $request->query->get('search');
+
+        // j'initilise une variable $books avec un tableau vide
+        // pour ne pas avoir d'erreur si je n'ai pas de parametre d'url de recherche
+        // et que donc ma méthode de répository n'est pas appelée
+        $books = [];
+
+        //  si j'ai des parametres d'url de recherche (donc que mon utilisateur
+        // a fait une recherche
+        if (!empty($word)) {
+            // s'il a fait une recherche, je créé une requête SELECT
+            // pour trouver les livres que l'utilisateur a recherché
+            $books = $bookRepository->findByWordsInResume($word);
+        }
+
+        // j'appelle mon fichier twig avec les books trouvés en BDD
+        return $this->render('search.html.twig', [
+           'books' => $books
+        ]);
+
+
     }
 
 }
