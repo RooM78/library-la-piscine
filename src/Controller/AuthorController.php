@@ -3,8 +3,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,6 +61,8 @@ class AuthorController extends AbstractController
         // j'utilise l'bookRepository et la méthode findAll() pour récupérer tous les éléments
         // de ma table books
         $books = $bookRepository->findAll();
+
+        dump($books); die;
 
         return $this->render('books.html.twig', [
             'books' => $books
@@ -123,7 +127,28 @@ class AuthorController extends AbstractController
            'books' => $books
         ]);
 
+    }
 
+    /**
+     * @Route("books/insert", name="books_insert")
+     */
+    public function insertBook(EntityManagerInterface $entityManager)
+    {
+        // les entités font le lien avec les tables
+        // donc pour créer un enregistrement dans ma table book
+        // je créé une nouvelle instance de l'entité Book
+        $book = new Book();
+        // je lui donne les valeurs des colonnes avec les setters
+        $book->setTitle("La peau sur les os");
+        $book->setGenre("horror");
+        $book->setNbPages(400);
+        $book->setResume('blablabla');
+
+        // j'utilise l'entityManager pour que Doctrine
+        // m'enregistre le livre créé avec la méthode persist()
+        // puis je "valide" l'enregistrement avec la méthode flush()
+        $entityManager->persist($book);
+        $entityManager->flush();
     }
 
 }
