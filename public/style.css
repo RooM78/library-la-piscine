@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+.adminBook {
+    width: 33.33%;
+    padding: 20px;
+    background-color: lightcyan;
+    text-align:center;
+}
+
+.containerBooks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -9,6 +9,7 @@ use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthorController extends AbstractController
@@ -150,5 +151,20 @@ class AuthorController extends AbstractController
         $entityManager->persist($book);
         $entityManager->flush();
     }
+
+    /**
+     * @Route("/books/update", name="books_update")
+     */
+    public function updateBook(BookRepository $bookRepository, EntityManagerInterface $entityManager)
+    {
+        $book = $bookRepository->find(1);
+
+        $book->setTitle('Silo 2');
+        $book->setNbPages(2);
+
+        $entityManager->persist($book);
+        $entityManager->flush();
+    }
+
 
 }
