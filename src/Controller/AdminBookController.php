@@ -3,10 +3,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,12 +47,29 @@ class AdminBookController extends AbstractController
     /**
      * @Route("/admin/books/insert", name="admin_books_insert")
      */
-    public function AdminInsertBook()
+    public function AdminInsertBook(
+        Request $request,
+        EntityManagerInterface $entityManager
+    )
     {
+        // je créé une nouvelle instance de l'entité Book
+        $book = new Book();
+
         // je récupère le gabarit de formulaire de
         // l'entité Book, créé avec la commande make:form
         // et je le stocke dans une variable $bookForm
-        $bookForm = $this->createForm(BookType::class);
+        $bookForm = $this->createForm(BookType::class, $book);
+
+        // on prend les données de la requête (classe Request)
+        //et on les "envoie" à notre formulaire
+        $bookForm->handleRequest($request);
+
+        // si le formulaire a été envoyé et que les données sont valides
+        // par rapport à celles attendues alors je persiste le livre
+        if ($bookForm->isSubmitted() && $bookForm->isValid() ) {
+            $entityManager->persist($book);
+            $entityManager->flush();
+        }
 
         // je retourne mon fichier twig, en lui envoyant
         // la vue du formulaire, générée avec la méthode createView()
