@@ -22,7 +22,7 @@ class AdminBookController extends AbstractController
     {
         $books = $bookRepository->findAll();
 
-        return $this->render('admin_books.html.twig', [
+        return $this->render('admin/admin_books.html.twig', [
            'books' => $books
         ]);
     }
@@ -45,7 +45,7 @@ class AdminBookController extends AbstractController
     }
 
     /**
-     * @Route("/admin/books/insert", name="admin_books_insert")
+     * @Route("/admin/book/insert", name="admin_book_insert")
      */
     public function AdminInsertBook(
         Request $request,
@@ -69,11 +69,42 @@ class AdminBookController extends AbstractController
         if ($bookForm->isSubmitted() && $bookForm->isValid() ) {
             $entityManager->persist($book);
             $entityManager->flush();
+
+            return $this->redirectToRoute('admin_books');
         }
 
         // je retourne mon fichier twig, en lui envoyant
         // la vue du formulaire, générée avec la méthode createView()
-        return $this->render('admin_books_insert.html.twig', [
+        return $this->render('admin/admin_book_insert.html.twig', [
+            'bookForm' => $bookForm->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/book/update/{id}", name="admin_book_update")
+     */
+    public function AdminUpdateBook(
+        BookRepository $bookRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        $id
+    )
+    {
+        $book = $bookRepository->find($id);
+
+        $bookForm = $this->createForm(BookType::class, $book);
+
+        $bookForm->handleRequest($request);
+
+        if ($bookForm->isSubmitted() && $bookForm->isValid()) {
+            $entityManager->persist($book);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_books');
+        }
+
+        return $this->render('admin/admin_book_update.html.twig', [
             'bookForm' => $bookForm->createView()
         ]);
     }

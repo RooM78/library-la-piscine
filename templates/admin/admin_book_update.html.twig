@@ -1,0 +1,13 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+
+    <h1>Modifier un livre</h1>
+
+    {# j'affiche mon formulaire avec la fonction twig form, et en parametre le formulaire envoyé
+        depuis le controleur
+     #}
+    {{ form(bookForm) }}
+
+
+{% endblock %}
