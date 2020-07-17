@@ -21,7 +21,7 @@ class Book
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Merci de remplir ce champs, je me suis pas cassé le cul à faire ce formulaire pour que dalle!")
+     * @Assert\NotBlank(message = "Merci de remplir le titre !")
      */
     private $title;
 
