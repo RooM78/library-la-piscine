@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
@@ -19,6 +21,7 @@ class Book
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Merci de remplir ce champs, je me suis pas cassé le cul à faire ce formulaire pour que dalle!")
      */
     private $title;
 

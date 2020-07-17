@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AuthorRepository::class)
@@ -28,7 +29,7 @@ class Author
     private $lastName;
 
     /**
-     * ORM\Column(type="date")
+     * @ORM\Column(type="date")
      */
     private $birthDate;
 

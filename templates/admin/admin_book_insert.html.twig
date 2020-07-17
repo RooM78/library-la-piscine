@@ -17,24 +17,31 @@
        Je peux utiliser en second argument de ces fonction un objet 'attr' pour
        gérer les classes, id etc des inputs
      #}
-    {{ form_start(bookForm) }}
+    <div>
 
-        {{ form_widget(bookForm.title, {'attr': {'class': 'input_title'}}) }}
-        {{ form_label(bookForm.title) }}
+        {{ form_start(bookForm, {'attr': {'class': 'book_form'}}) }}
 
-        {{ form_widget(bookForm.resume) }}
-        {{ form_label(bookForm.resume) }}
+            {{ form_label(bookForm.title, 'titre', {'label_attr': {'class': 'label_label'}}) }}
+            {{ form_widget(bookForm.title) }}
+            {{ form_errors(bookForm.title)}}
 
-        {{ form_widget(bookForm.nbPages) }}
-        {{ form_label(bookForm.nbPages) }}
+            {{ form_label(bookForm.resume) }}
+            {{ form_widget(bookForm.resume, {'attr': {'class': 'input_book'}}) }}
+            {{ form_errors(bookForm.resume)}}
 
-        {{ form_widget(bookForm.genre) }}
-        {{ form_label(bookForm.genre) }}
+            {{ form_label(bookForm.nbPages) }}
+            {{ form_widget(bookForm.nbPages, {'attr': {'class': 'input_book'}}) }}
+            {{ form_errors(bookForm.nbPages)}}
 
-        {{ form_widget(bookForm.submit) }}
+            {{ form_label(bookForm.genre) }}
+            {{ form_widget(bookForm.genre, {'attr': {'class': 'input_book'}}) }}
+            {{ form_errors(bookForm.genre)}}
 
-    {{ form_end(bookForm) }}
+            {{ form_widget(bookForm.submit, {'attr': {'class': 'input_book'}}) }}
 
+        {{ form_end(bookForm) }}
+
+    </div>
 
 
 {% endblock %}

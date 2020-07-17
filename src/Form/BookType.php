@@ -18,7 +18,8 @@ class BookType extends AbstractType
         // généralement à une propriété d'entité et donc une colonne de la table
         $builder
             ->add('title', null, [
-                'label' => 'titre'
+                'label' => 'titre',
+                'required' => false
             ])
             ->add('nbPages')
             ->add('genre')
