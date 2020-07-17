@@ -7,7 +7,33 @@
     {# j'affiche mon formulaire avec la fonction twig form, et en parametre le formulaire envoyé
         depuis le controleur
      #}
-    {{ form(bookForm) }}
+
+    {# pour rendre directement tout le formulaire, on utilise la fonction twig form() #}
+
+    {#
+        pour plutôt décomposer le formulaire et avoir la main sur chaque input / label
+        on utilise les fonctions form_start() et form_end pour la balise form,
+        puis form_widget() et form_label() sur chacun des champs.
+       Je peux utiliser en second argument de ces fonction un objet 'attr' pour
+       gérer les classes, id etc des inputs
+     #}
+    {{ form_start(bookForm) }}
+
+        {{ form_widget(bookForm.title, {'attr': {'class': 'input_title'}}) }}
+        {{ form_label(bookForm.title) }}
+
+        {{ form_widget(bookForm.resume) }}
+        {{ form_label(bookForm.resume) }}
+
+        {{ form_widget(bookForm.nbPages) }}
+        {{ form_label(bookForm.nbPages) }}
+
+        {{ form_widget(bookForm.genre) }}
+        {{ form_label(bookForm.genre) }}
+
+        {{ form_widget(bookForm.submit) }}
+
+    {{ form_end(bookForm) }}
 
 
 

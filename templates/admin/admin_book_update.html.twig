@@ -7,7 +7,20 @@
     {# j'affiche mon formulaire avec la fonction twig form, et en parametre le formulaire envoyé
         depuis le controleur
      #}
-    {{ form(bookForm) }}
+
+    {{ form_start(bookForm) }}
+
+        {{ form_row(bookForm.resume) }}
+
+        {{ form_row(bookForm.title) }}
+
+        {{ form_row(bookForm.nbPages) }}
+
+        {{ form_row(bookForm.genre) }}
+
+        {{ form_row(bookForm.submit) }}
+
+    {{ form_end(bookForm) }}
 
 
 {% endblock %}
