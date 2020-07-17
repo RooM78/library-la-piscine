@@ -70,6 +70,8 @@ class AdminBookController extends AbstractController
             $entityManager->persist($book);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre livre a été créé !');
+
             return $this->redirectToRoute('admin_books');
         }
 

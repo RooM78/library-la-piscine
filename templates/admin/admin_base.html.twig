@@ -10,6 +10,12 @@
 </head>
 <body>
 
+    {% for message in app.flashes('success') %}
+        
+        <h2>{{ message }}</h2>
+
+    {% endfor %}
+
     <header>
         <p>Je suis le header de la zone d'admin</p>
         <a href="{{ path('admin_books') }}">Liste des livres</a>
