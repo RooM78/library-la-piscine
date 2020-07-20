@@ -31,14 +31,16 @@ class Book
     private $nbPages;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $genre;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $resume;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="books")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $genre;
+
 
     public function getId(): ?int
     {
@@ -69,18 +71,6 @@ class Book
         return $this;
     }
 
-    public function getGenre(): ?string
-    {
-        return $this->genre;
-    }
-
-    public function setGenre(?string $genre): self
-    {
-        $this->genre = $genre;
-
-        return $this;
-    }
-
     /**
      * @return mixed
      */
@@ -95,5 +85,17 @@ class Book
     public function setResume($resume): void
     {
         $this->resume = $resume;
+    }
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): self
+    {
+        $this->genre = $genre;
+
+        return $this;
     }
 }
