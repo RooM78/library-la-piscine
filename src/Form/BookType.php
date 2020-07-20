@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Book;
+use App\Entity\Genre;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,7 +24,14 @@ class BookType extends AbstractType
                 'required' => false
             ])
             ->add('nbPages')
-            ->add('genre')
+            // j'ajoute le champs genre et je lui mets
+            // 'EntityType' en type de champs pour que symfony
+            // créé une liste déroulante avec tous les genres existants en bdd
+            // pour chaque genre, j'utilise sa propriété (donc sa colonne) 'name' pour afficher le genre
+            ->add('genre', EntityType::class, [
+                'class' => Genre::class,
+                'choice_label' => 'name'
+            ])
             ->add('resume')
             // je rajoute manuellement un input submit
             ->add('submit', SubmitType::class)

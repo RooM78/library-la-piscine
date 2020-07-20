@@ -7,7 +7,6 @@
             <article class="adminBook">
                 <h3>{{ book.title }}</h3>
                 <p>Nombre de pages : {{ book.nbPages }}</p>
-                <p>Genre : {{ book.genre }}</p>
                 <p>Résumé : {{ book.resume }}</p>
                 <a href="{{ path('admin_book_delete', {'id': book.id}) }}">Supprimer le livre</a>
                 <a href="{{ path('admin_book_update', {'id': book.id}) }}">Modifier le livre</a>
