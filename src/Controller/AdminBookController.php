@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use App\Repository\GenreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -109,6 +110,34 @@ class AdminBookController extends AbstractController
         return $this->render('admin/admin_book_update.html.twig', [
             'bookForm' => $bookForm->createView()
         ]);
+    }
+
+
+    /**
+     * @Route("/admin/book/insertwithgenre", name="admin_book_insert_genre")
+     */
+    public function InsertBookWithGenre(
+        GenreRepository $genreRepository,
+        EntityManagerInterface $entityManager
+    )
+    {
+
+        // je récupère un genre en bdd avec le genreRepository
+        // et la méthode find()
+        $genre = $genreRepository->find(2);
+
+        $book = new Book();
+
+        $book->setTitle('titre blabla');
+        $book->setNbPages(450);
+        $book->setResume('blavklbkakvk');
+        // je créé la relation entre mon book et mon genre
+        $book->setGenre($genre);
+
+        $entityManager->persist($book);
+        $entityManager->flush();
+
+        return new Response('livre enregistré');
     }
 
 }
