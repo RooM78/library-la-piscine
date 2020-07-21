@@ -5,9 +5,16 @@
     <main class="containerBooks">
         {% for book in books %}
             <article class="adminBook">
+                {#
+                    pour afficher mon image (stockée dans un sous dossier de public)
+                    j'utilise la fonction asset() et je lui donne le chemin de mon sous-dossier
+                   concaténé avec le nom de l'image de ce livre (enregistrée en BDD)
+                 #}
+                <img class="adminBook_img" src="{{ asset('/uploads/book/'~book.bookCover) }}" alt="">
                 <h3>{{ book.title }}</h3>
                 <p>Nombre de pages : {{ book.nbPages }}</p>
                 <p>Résumé : {{ book.resume }}</p>
+                <p>Genre : {{ book.genre.name }}</p>
                 <a href="{{ path('admin_book_delete', {'id': book.id}) }}">Supprimer le livre</a>
                 <a href="{{ path('admin_book_update', {'id': book.id}) }}">Modifier le livre</a>
             </article>

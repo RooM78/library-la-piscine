@@ -37,6 +37,10 @@
             {{ form_widget(bookForm.genre, {'attr': {'class': 'input_book'}}) }}
             {{ form_errors(bookForm.genre)}}
 
+            {{ form_label(bookForm.bookCover) }}
+            {{ form_widget(bookForm.bookCover, {'attr': {'class': 'input_book'}}) }}
+            {{ form_errors(bookForm.bookCover)}}
+
             {{ form_widget(bookForm.submit, {'attr': {'class': 'input_book'}}) }}
 
         {{ form_end(bookForm) }}
